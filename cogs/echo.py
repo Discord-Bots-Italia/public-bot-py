@@ -6,8 +6,8 @@ class Zakuren(commands.Cog):
         self.bot = bot 
         
     @commands.command()
-    async def echo(self, ctx, msg):
-        await ctx.send(f"{msg}")
+    async def echo(self, ctx, *, msg):
+        await ctx.send(msg)
         
 def setup(bot):
     bot.add_cog(Zakuren(bot))
