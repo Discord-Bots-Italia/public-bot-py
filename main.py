@@ -3,6 +3,10 @@ from discord.ext import commands
 import os 
 from dotenv import load_dotenv
 
+os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
+os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
+os.environ["JISHAKU_HIDE"] = "True"
+
 load_dotenv(dotenv_path = ".env")
 
 bot = commands.Bot(command_prefix = commands.when_mentioned_or("py "), case_insensitive = True,  allowed_mentions = discord.AllowedMentions(everyone=False, roles = False))
