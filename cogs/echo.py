@@ -7,6 +7,8 @@ class Zakuren(commands.Cog):
         
     @commands.command()
     async def echo(self, ctx, *, msg):
+        a = commands.clean_content(use_nicknames = True)
+        msg = await a.convert(ctx, msg)
         await ctx.send(msg)
         
 def setup(bot):
