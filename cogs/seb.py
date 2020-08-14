@@ -16,4 +16,4 @@ class Sebastiano(commands.Cog):
         await ctx.send(f"**{ctx.author.display_name}** hugged **{member.display_name}**", allowed_mentions = discord.AllowedMentions(users = False, roles = False, everyone = False), file = f)
         
 def setup(bot):
-    bot.add_cog(Misc(bot))
+    bot.add_cog(Sebastiano(bot))
