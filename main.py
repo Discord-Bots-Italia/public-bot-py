@@ -15,7 +15,7 @@ async def on_ready():
 @bot.event 
 async def on_command_error(ctx, error):
     emb = discord.Embed(description = f"```\n{error}\n```", colour = 0x2F3136)
-    emb.set_author(name = ctx.author, icon_url = str(ctx.author.icon_url_as(static_format = "png")))
+    emb.set_author(name = ctx.author, icon_url = str(ctx.author.avatar_url_as(static_format = "png")))
     await ctx.send(embed = emb)
 
 for a in os.listdir("./cogs"):
