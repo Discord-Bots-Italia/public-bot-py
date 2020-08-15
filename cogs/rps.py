@@ -6,15 +6,7 @@ class Rps(commands.Cog):
         self.bot = bot 
         
     @commands.command()
-    async def rps(self, ctx):
-        async def winner(user_move, bot_move):
-            if user_move == "rock" and bot_move == "paper" or user_move == "scissors" and bot_move == "rock" or user_move == "paper" and bot_move == "scissors":
-                await ctx.send("I win.")
-            elif user_move == "paper" and bot_move == "rock" or user_move == "rock" and bot_move == "scissors" or user_move == "scissors" and bot_move == "paper":
-                await ctx.send("You win.")
-            else:
-                await ctx.send("It's a draw.")
-            
+    async def rps(self, ctx):           
         moves = ["rock", "paper", "scissors"]
         e = discord.Embed(
             title="Let's play some R-P-S!",
@@ -29,16 +21,21 @@ class Rps(commands.Cog):
         await msg.add_reaction(emoji='✅')
         reaction, _ = await self.bot.wait_for("reaction_add", check=check)
         if reaction.emoji == '✅':
-            random_move = random.choice(moves)
+            bot_move = random.choice(moves)
             while True:
                 await ctx.send("Choose one of the following moves:\n Rock\n Paper\n Scissors\n and write it.")
                 def checkmsg(m):
                     return m.content.lower() in moves
-                m = await self.bot.wait_for("message", check=checkmsg)
-                m = m.content.lower()
-                if m in moves:
-                    await ctx.send(f"Ok! I choose... {random_move}!")
-                    winner(m, random_move)
+                user_move = await self.bot.wait_for("message", check=checkmsg)
+                user_move = user_move.content.lower()
+                if user_move in moves:
+                    await ctx.send(f"Ok! I choose... {bot_move}!")
+                    if user_move == "rock" and bot_move == "paper" or user_move == "scissors" and bot_move == "rock" or user_move == "paper" and bot_move == "scissors":
+                        await ctx.send("I win.")
+                    elif user_move == "paper" and bot_move == "rock" or user_move == "rock" and bot_move == "scissors" or user_move == "scissors" and bot_move == "paper":
+                        await ctx.send("You win.")
+                    else:
+                        await ctx.send("It's a draw.")
                     break
                     
                 else:
