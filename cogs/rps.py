@@ -7,7 +7,7 @@ class Rps(commands.Cog):
         
     @commands.command()
     async def rps(self, ctx):
-        def winner(user_move, bot_move):
+        async def winner(user_move, bot_move):
             if user_move == "rock" and bot_move == "paper" or user_move == "scissors" and bot_move == "rock" or user_move == "paper" and bot_move == "scissors":
                 await ctx.send("I win.")
             elif user_move == "paper" and bot_move == "rock" or user_move == "rock" and bot_move == "scissors" or user_move == "scissors" and bot_move == "paper":
