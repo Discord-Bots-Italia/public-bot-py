@@ -32,10 +32,9 @@ class Rps(commands.Cog):
             random_move = random.choice(moves)
             while True:
                 await ctx.send("Choose one of the following moves:\n Rock\n Paper\n Scissors\n and write it.")
-                def checkmsg(m, user):
-                    return m.content.lower() in moves and user == ctx.author
-
-                m, _ = await self.bot.wait_for("message", check=checkmsg)
+                def checkmsg(m):
+                    return m.content.lower() in moves
+                m = await self.bot.wait_for("message", check=checkmsg)
                 m = m.content.lower()
                 if m in moves:
                     await ctx.send(f"Ok! I choose... {random_move}!")
