@@ -1,5 +1,6 @@
 import discord 
-from discord.ext import commands     
+from discord.ext import commands 
+import inspect    
 
 class Misc(commands.Cog):
     def __init__(self, bot):
