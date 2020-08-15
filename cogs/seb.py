@@ -20,14 +20,16 @@ class Sebastiano(commands.Cog):
     @commands.command()
     async def redpanda(self, ctx):
         "RedPanda owo"
-        async with aiohttp.ClientSession() as cs:
-            res = await cs.get("https://some-random-api.ml/img/red_panda")
-            j = await res.json()
-            url = j["link"]
-            async with cs.get(url) as img:
-                bytes = await img.read()
 
-        await ctx.send(file = discord.File(fp = io.BytesIO(bytes), filename = "redpanda.png"))
+        async with ctx.typing():
+            async with aiohttp.ClientSession() as cs:
+                res = await cs.get("https://some-random-api.ml/img/red_panda")
+                j = await res.json()
+                url = j["link"]
+                async with cs.get(url) as img:
+                    bytes = await img.read()
+
+            await ctx.send(file = discord.File(fp = io.BytesIO(bytes), filename = "redpanda.png"))
 
 
 def setup(bot):
