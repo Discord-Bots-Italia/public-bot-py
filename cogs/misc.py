@@ -33,6 +33,7 @@ class Misc(commands.Cog):
             filename = src.co_filename
 
         lines, firstlineno = inspect.getsourcelines(src)
+        location = os.path.relpath(filename).replace('\\', '/')
 
         final_url = f'<{source_url}/blob/{branch}/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>'
         await ctx.send(final_url)
