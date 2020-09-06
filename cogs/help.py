@@ -2,11 +2,9 @@ import discord
 from discord.ext import commands 
 
 class HelpCommand(commands.MinimalHelpCommand):
-    def __init__(self):
-        self.show_hidden = False
-        
+    
     def get_command_signature(self, command):
-        return f"{self.clean_prefix}{command.qualified_name}{command.signature}"
+        return f"`{self.clean_prefix}{command.qualified_name}{command.signature}``"
 
 class Help(commands.Cog):
     def __init__(self, bot):
