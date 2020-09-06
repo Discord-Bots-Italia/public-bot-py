@@ -1,12 +1,12 @@
 import discord
 from discord.ext import commands 
 
-class HelpCommand(commands.MinimalHelpCommand):
-    
-    def get_command_signature(self, command):
-        return f"`{self.clean_prefix}{command.qualified_name}{command.signature}``"
+class HelpCommand(commands.HelpCommand):
 
-class Help(commands.Cog):
+    def get_command_signature(self, command):
+        return f"`{self.clean_prefix}{command.qualified_name}{command.signature}`"
+
+class HelpCog(commands.Cog):
     def __init__(self, bot):
         self._original_help_command = bot.help_command
         bot.help_command = HelpCommand()
@@ -16,4 +16,4 @@ class Help(commands.Cog):
         self.bot.help_command = self._original_help_command
 
 def setup(bot):
-    bot.add_cog(Help(bot))
+    bot.add_cog(HelpCog(bot))
