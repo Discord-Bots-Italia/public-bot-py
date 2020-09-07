@@ -21,11 +21,23 @@ class Samplasion(commands.Cog):
             async with aiohttp.ClientSession() as cs:
                 res = await cs.get(f'https://some-random-api.ml/lyrics?title={p.quote(song)}')
                 j = await res.json()
-                author = j['author']
-                title = j['title']
-                lyrics = j['lyrics']
+                try:
+                    author = j['author']
+                    title = j['title']
+                    lyrics = j['lyrics']
+                except KeyError:
+                    pass
+
+                try:
+                    error = j["error"]
+                except KeyError:
+                    pass
 
             await cs.close()
+
+            if error and error is not None:
+                emb = discord.Embed(description=f":x: | An unexpected error occurred\n```{error}```", colour=0x2F3136)
+                return await ctx.send(embed=emb)
 
             for portion in split(f'Lyrics for **{title}** by {author}\n\n{lyrics}'):
                 await ctx.send(portion)
