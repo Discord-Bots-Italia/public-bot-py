@@ -25,6 +25,8 @@ class Samplasion(commands.Cog):
                 title = j['title']
                 lyrics = j['lyrics']
 
+            await cs.close()
+
             for portion in split(f'Lyrics for **{title}** by {author}\n\n{lyrics}'):
                 await ctx.send(portion)
 
