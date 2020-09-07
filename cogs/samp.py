@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import aiohttp
 import urllib.parse as p
+from pyquery import PyQuery as pquery
 
 
 class Samplasion(commands.Cog):
@@ -27,6 +28,35 @@ class Samplasion(commands.Cog):
             for portion in split(f'Lyrics for **{title}** by {author}\n\n{lyrics}'):
                 await ctx.send(portion)
 
+    @commands.command(aliases=['hor'])
+    async def horoscope(self, ctx, *, sign: str):
+        signs = [
+            "aries",
+            "taurus",
+            "gemini",
+            "cancer",
+            "leo",
+            "virgo",
+            "libra",
+            "scorpio",
+            "sagittarius",
+            "capricorn",
+            "aquarius",
+            "pisces"
+        ]
+        if sign.lower() not in signs:
+            return await ctx.send(f'The sign must be one of {signs}')
+
+        async with ctx.typing():
+            async with aiohttp.ClientSession() as cs:
+                res = await cs.get(f'https://www.astrology.com/horoscope/daily/today/{sign.lower()}.html')
+                pq = pquery(await res.text())
+
+            text = pq("body > section > section > div.horoscope-main.grid.grid-right-sidebar.primis-rr > main > "
+                      "p:nth-child(7)").text()
+
+            await ctx.send(text)
+
 
 def split(text: str, separator="\n"):
     if len(text) <= 2000:
@@ -35,7 +65,7 @@ def split(text: str, separator="\n"):
     list = []
 
     for portion in text.split(separator):
-        if len(list) == 0:
+        if len(list) < 1:
             list[0] = portion
         elif len(list[-1] + separator + portion) < 2000:
             list[-1] += separator + portion
