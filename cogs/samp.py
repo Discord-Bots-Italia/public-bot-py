@@ -11,7 +11,7 @@ class Samplasion(commands.Cog):
 
     @commands.command()
     async def lyrics(self, ctx, *, song):
-        """Get the lyrics for a song of your choice"""
+        """Get the lyrics of a song of your choice"""
 
         song = f'{song}'
 
@@ -44,6 +44,8 @@ class Samplasion(commands.Cog):
 
     @commands.command(aliases=['hor'])
     async def horoscope(self, ctx, *, sign: str):
+        """Get today's horoscope!"""
+        
         signs = [
             "aries",
             "taurus",
