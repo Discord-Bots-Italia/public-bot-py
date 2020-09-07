@@ -51,10 +51,9 @@ class Samplasion(commands.Cog):
             emb = discord.Embed(description = f":x: | The sign must be one of these:```{signs}```", colour = 0x2F3136)
             return await ctx.send(embed = emb)
 
-        async with ctx.typing():
-            async with aiohttp.ClientSession() as cs:
-                res = await cs.get(f'https://www.astrology.com/horoscope/daily/today/{sign.lower()}.html')
-                pq = pquery(await res.text())
+        async with ctx.typing(), aiohttp.ClientSession() as cs:
+            res = await cs.get(f'https://www.astrology.com/horoscope/daily/today/{sign.lower()}.html')
+            pq = pquery(await res.text())
 
             text = pq("body > section > section > div.horoscope-main.grid.grid-right-sidebar.primis-rr > main > "
                       "p:nth-child(7)").text()
