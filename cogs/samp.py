@@ -45,7 +45,9 @@ class Samplasion(commands.Cog):
             "pisces"
         ]
         if sign.lower() not in signs:
-            return await ctx.send(f'The sign must be one of {signs}')
+            signs = "\n".join(signs)
+            emb = discord.Embed(description = f":x: | The sign must be one of these:```{signs}```", colour = 0x2F3136)
+            return await ctx.send(embed = emb)
 
         async with ctx.typing():
             async with aiohttp.ClientSession() as cs:
@@ -54,6 +56,8 @@ class Samplasion(commands.Cog):
 
             text = pq("body > section > section > div.horoscope-main.grid.grid-right-sidebar.primis-rr > main > "
                       "p:nth-child(7)").text()
+
+            await cs.close()
 
             await ctx.send(text)
 
@@ -73,7 +77,6 @@ def split(text: str, separator="\n"):
             list.append(separator + portion)
 
     return list
-
 
 def setup(bot):
     bot.add_cog(Samplasion(bot))
