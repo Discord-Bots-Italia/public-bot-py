@@ -84,7 +84,7 @@ class HelpCommand:
             emb.add_field(name = "Usage", value = usage)
 
             if command.aliases:
-                emb.add_field(name = "Aliases", value = '```\n{}\n```'.format("\n".join([command.aliases])))
+                emb.add_field(name = "Aliases", value = '```\n{}\n```'.format("\n".join([command.aliases] if command.aliases is list else command.aliases)))
 
             try:
                 if command.commands:
