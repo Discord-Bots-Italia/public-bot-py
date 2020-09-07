@@ -73,24 +73,26 @@ class HelpCommand:
             emb.add_field(name = "Usage", value = usage)
 
             if command.aliases:
-                emb.add_field(name = "Aliases", value = '`\n{}\n```'.format("\n".join([f"{self.bot.clean_prefix}{cmd}" for cmd in command.aliases])))
+                aliases = "\n".join([f"{self.bot.clean_prefix}{cmd}" for cmd in command.aliases])
+                emb.add_field(name = "Aliases", value = '```\n{}\n```'.format(aliases))
             
             emb.add_field(name = "Parent", value = f"```\n{self.bot.clean_prefix}{command.parent}\n```")
 
             return await ctx.send(embed = emb)
 
         else:
-            usage = f"```{self.bot.clean_prefix}{command.name}{command.signature}```" if command.signature else f"```{self.bot.clean_prefix}{command.name}```"
+            usage = f"```{self.bot.clean_prefix}{command.name} {command.signature}```" if command.signature else f"```{self.bot.clean_prefix}{command.name}```"
             emb.add_field(name = "Usage", value = usage)
 
             if command.aliases:
-                emb.add_field(name = "Aliases", value = '```\n{}\n```'.format("\n".join([command.aliases])))
+                aliases = "\n".join([f"{self.bot.clean_prefix}{cmd}" for cmd in command.aliases])
+                emb.add_field(name = "Aliases", value = '```\n{}\n```'.format(aliases))
 
             try:
                 if command.commands:
                     subcommands = ""
                     for cmd in [c for c in command.commands if not c.hidden]:
-                        subcommands += f"{self.bot.clean_prefix}{cmd.parent} {cmd.name}{cmd.signature}\n"
+                        subcommands += f"{self.bot.clean_prefix}{cmd.parent} {cmd.name} {cmd.signature}\n"
                         
                     emb.add_field(name = "Subcommands", value = f"```\n{subcommands}\n```")
 
@@ -116,7 +118,7 @@ class HelpCommand:
 
                 try:
                     for cmd in command.commands:
-                        cog_str += f"{self.bot.clean_prefix}{cmd.parent} {cmd.name}{cmd.signature}\n" if command.signature else f"{self.bot.clean_prefix}{cmd.parent} {cmd.name}\n" 
+                        cog_str += f"{self.bot.clean_prefix}{cmd.parent} {cmd.name} {cmd.signature}\n" if command.signature else f"{self.bot.clean_prefix}{cmd.parent} {cmd.name}\n" 
                 except:
                     pass
 
