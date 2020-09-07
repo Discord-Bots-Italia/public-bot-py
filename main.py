@@ -11,6 +11,7 @@ load_dotenv(dotenv_path = ".env")
 
 bot = commands.Bot(command_prefix = commands.when_mentioned_or("py "), case_insensitive = True, allowed_mentions = discord.AllowedMentions(everyone=False, roles = False))
 bot.load_extension("jishaku")
+bot.clean_prefix = "py "
 
 @bot.event
 async def on_ready():
