@@ -48,10 +48,11 @@ class chickenmatty(commands.Cog):
 
     @commands.command()
     async def we(self, ctx, member: discord.Member = None):
-        member = member or ctx.author
-        bytes = await member.avatar_url_as(format = "png").read()
-        bytes = await self.coviddi(bytes)
-        file = discord.File(fp = bytes, filename = "coviddi.png")
+        async with ctx.typing():
+            member = member or ctx.author
+            bytes = await member.avatar_url_as(format = "png").read()
+            bytes = await self.coviddi(bytes)
+            file = discord.File(fp = bytes, filename = "coviddi.png")
         await ctx.send("BUONGIORNO DA MONDELLO!!! OGGI AMMARE", file = file)
         
 def setup(bot):
