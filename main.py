@@ -1,6 +1,5 @@
-import discord 
+import discord, os, asyncio 
 from discord.ext import commands 
-import os 
 from dotenv import load_dotenv
 
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
@@ -12,6 +11,7 @@ load_dotenv(dotenv_path = ".env")
 bot = commands.Bot(command_prefix = commands.when_mentioned_or("py "), case_insensitive = True, allowed_mentions = discord.AllowedMentions(everyone=False, roles = False))
 bot.load_extension("jishaku")
 bot.clean_prefix = "py "
+bot.loop = asyncio.get_event_loop()
 
 @bot.event
 async def on_ready():
