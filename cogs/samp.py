@@ -31,11 +31,12 @@ class Samplasion(commands.Cog):
                 try:
                     error = j["error"]
                 except KeyError:
+                    error = None
                     pass
 
             await cs.close()
 
-            if error and error is not None:
+            if error:
                 emb = discord.Embed(description=f":x: | An unexpected error occurred\n```{error}```", colour=0x2F3136)
                 return await ctx.send(embed=emb)
 
