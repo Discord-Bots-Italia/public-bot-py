@@ -8,7 +8,7 @@ class Starnumber(commands.Cog):
         
     @commands.command()
     async def destroyer(self, ctx, *, user: discord.User):
-    await ctx.send(user+', sei stato ucciso da ' + ctx.author
+        await ctx.send(user+', sei stato ucciso da ' + ctx.author)
         
 def setup(bot):
     bot.add_cog(Starnumber(bot))
